@@ -4,6 +4,10 @@ import co.com.asgard.core.dto.ReportDTO;
 import co.com.asgard.core.service.ReportService;
 import co.com.asgard.core.util.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -35,21 +39,25 @@ public class ReportController {
         return ResponseEntity.ok(reports);
     }
 
-    /*
     @GetMapping("/pdf")
     public ResponseEntity<Resource> downloadPdfReport() {
-        Resource pdfReport = reportService.generatePdfReport();
+        byte[] pdfBytes = reportService.generatePdfReport();
+        ByteArrayResource resource = new ByteArrayResource(pdfBytes);
+
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf")
-                .body(pdfReport);
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(resource);
     }
 
     @GetMapping("/excel")
     public ResponseEntity<Resource> downloadExcelReport() {
-        Resource excelReport = reportService.generateExcelReport();
+        byte[] excelBytes = reportService.generateExcelReport();
+        ByteArrayResource resource = new ByteArrayResource(excelBytes);
+
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.xlsx")
-                .body(excelReport);
+                .contentType(MediaType.APPLICATION_OCTET_STREAM) // o MediaType.APPLICATION_XLSX
+                .body(resource);
     }
-    */
 }

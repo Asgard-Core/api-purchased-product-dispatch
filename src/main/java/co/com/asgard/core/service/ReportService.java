@@ -7,7 +7,7 @@ import java.util.List;
 public interface ReportService {
     List<ReportDTO> getAllReports();
 
-    //Resource generatePdfReport();
+    byte[] generatePdfReport();
 
-    //Resource generateExcelReport();
+    byte[] generateExcelReport();
 }
