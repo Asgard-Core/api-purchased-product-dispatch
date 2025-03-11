@@ -1,18 +1,18 @@
 package co.com.asgard.core.controller;
 
 import co.com.asgard.core.dto.ReportDTO;
-import co.com.asgard.core.service.ReportService;
+import co.com.asgard.core.dto.ReportRequestDTO;
+import co.com.asgard.core.dto.ReportResponseDTO;
+import co.com.asgard.core.service.IReportService;
 import co.com.asgard.core.util.Constants;
+import co.com.asgard.core.util.ReportEXCELGenerator;
+import co.com.asgard.core.util.ReportPDFGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -20,44 +20,65 @@ import java.util.List;
 @RequestMapping("${app.api.base-path}")
 public class ReportController {
 
-    private final ReportService reportService;
+    private final IReportService reportService;
 
     @Autowired
-    public ReportController(ReportService reportService) {
+    public ReportController(IReportService reportService) {
         this.reportService = reportService;
     }
 
+    @PostMapping("/generar")
+    public ResponseEntity<ReportResponseDTO> generarReporte(
+            @RequestBody ReportRequestDTO request,
+            @RequestHeader(value = Constants.ID_USER) String idUser) {
+
+        System.out.println("Usuario: " + idUser);
+        ReportResponseDTO response = reportService.generarReporte(request);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/reports")
-    public ResponseEntity<List<ReportDTO>> getAllReports(
-            @RequestHeader(value = Constants.ID_USER) String idUser
-    ) {
+    public ResponseEntity<List<ReportDTO>> getAllReports(@RequestHeader(value = Constants.ID_USER) String idUser) {
 
-        System.out.println(idUser);
-        System.out.println(Constants.APP);
-
+        System.out.println("Usuario: " + idUser);
         List<ReportDTO> reports = reportService.getAllReports();
         return ResponseEntity.ok(reports);
     }
 
-    @GetMapping("/pdf")
-    public ResponseEntity<Resource> downloadPdfReport() {
-        byte[] pdfBytes = reportService.generatePdfReport();
-        ByteArrayResource resource = new ByteArrayResource(pdfBytes);
+    @PostMapping("/exportar/pdf")
+    public ResponseEntity<byte[]> exportReportPDF(@RequestBody ReportRequestDTO request) {
+        try {
+            ReportResponseDTO report = reportService.generarReporte(request);
+            byte[] pdfBytes = ReportPDFGenerator.generarPDF(report);
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.pdf")
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(resource);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=reporte.pdf");
+            headers.setContentType(MediaType.APPLICATION_PDF);
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(pdfBytes);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
-    @GetMapping("/excel")
-    public ResponseEntity<Resource> downloadExcelReport() {
-        byte[] excelBytes = reportService.generateExcelReport();
-        ByteArrayResource resource = new ByteArrayResource(excelBytes);
+    @PostMapping("/exportar/excel")
+    public ResponseEntity<byte[]> exportReportExcel(@RequestBody ReportRequestDTO request) {
+        try {
+            // Generar el archivo Excel con los datos del request
+            byte[] excelBytes = ReportEXCELGenerator.generarExcel(request);
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=report.xlsx")
-                .contentType(MediaType.APPLICATION_OCTET_STREAM) // o MediaType.APPLICATION_XLSX
-                .body(resource);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", "reporte.xlsx");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(excelBytes);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
+
 }
