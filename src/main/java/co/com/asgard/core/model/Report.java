@@ -1,8 +1,11 @@
 package co.com.asgard.core.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "reports")
 public class Report {
@@ -13,92 +16,25 @@ public class Report {
 
     @ManyToOne
     @JoinColumn(name = "transportista_id", nullable = false)
-    private Transportista transportista;
+    private Carrier carrier;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
-    private Cliente cliente;
+    private Client client;
 
-    @Column(nullable = false)
-    private LocalDateTime fechaDespacho;
+    @Column(name = "date_office", nullable = false)
+    private LocalDateTime dateOffice;
 
-    @Column(nullable = false, length = 50)
-    private String estadoEntrega;
+    @Column(name = "delivery_status", nullable = false, length = 50)
+    private String deliveryStatus;
 
     @Column(nullable = false, length = 255)
-    private String destino;
+    private String destination;
 
     @Column(columnDefinition = "TEXT")
-    private String detalles;
+    private String details;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime fechaCreacion = LocalDateTime.now();
+    @Column(name = "date_created", nullable = false, updatable = false)
+    private LocalDateTime dateCreated = LocalDateTime.now();
 
-    // Constructor vacío
-    public Report() {}
-
-    // Getters y Setters manuales
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Transportista getTransportista() {
-        return transportista;
-    }
-
-    public void setTransportista(Transportista transportista) {
-        this.transportista = transportista;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public LocalDateTime getFechaDespacho() {
-        return fechaDespacho;
-    }
-
-    public void setFechaDespacho(LocalDateTime fechaDespacho) {
-        this.fechaDespacho = fechaDespacho;
-    }
-
-    public String getEstadoEntrega() {
-        return estadoEntrega;
-    }
-
-    public void setEstadoEntrega(String estadoEntrega) {
-        this.estadoEntrega = estadoEntrega;
-    }
-
-    public String getDestino() {
-        return destino;
-    }
-
-    public void setDestino(String destino) {
-        this.destino = destino;
-    }
-
-    public String getDetalles() {
-        return detalles;
-    }
-
-    public void setDetalles(String detalles) {
-        this.detalles = detalles;
-    }
-
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
 }

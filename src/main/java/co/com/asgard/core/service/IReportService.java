@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IReportService {
 
-    ReportResponseDTO generarReporte(ReportRequestDTO request);
+    ReportResponseDTO generateReport(ReportRequestDTO request);
 
     List<ReportDTO> getAllReports();
 

@@ -1,13 +1,13 @@
 package co.com.asgard.core.service;
 
-import co.com.asgard.core.model.Producto;
+import co.com.asgard.core.model.Product;
 
 public interface IStockService {
 
-    Producto buscarProducto(String query);
+    Product searchProduct(String query);
 
-    Producto actualizarStock(String codigo, int cantidadNueva);
+    Product updateStock(String code, int cantidadNueva);
 
-    void guardarConsulta(String usuario, String producto);
+    void saveQuery(String user, String product);
 
 }

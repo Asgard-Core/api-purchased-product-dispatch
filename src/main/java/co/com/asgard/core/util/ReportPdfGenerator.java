@@ -6,9 +6,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
 
-public class ReportPDFGenerator {
+public class ReportPdfGenerator {
 
-    public static byte[] generarPDF(ReportResponseDTO report) {
+    public static byte[] generatePDF(ReportResponseDTO report) {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             Document document = new Document();

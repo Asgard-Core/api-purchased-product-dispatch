@@ -13,15 +13,15 @@ import java.util.List;
 public interface ReportRepository extends JpaRepository<Report, Long> {
 
     @Query("SELECT r FROM Report r WHERE " +
-            "(COALESCE(:fechaInicio, r.fechaDespacho) <= r.fechaDespacho) AND " +
-            "(COALESCE(:fechaFin, r.fechaDespacho) >= r.fechaDespacho) AND " +
-            "(COALESCE(:transportistaId, r.transportista.id) = r.transportista.id) AND " +
-            "(COALESCE(:clienteId, r.cliente.id) = r.cliente.id) AND " +
-            "(COALESCE(:estadoPedido, r.estadoEntrega) = r.estadoEntrega)")
-    List<Report> findReports(@Param("fechaInicio") LocalDateTime fechaInicio,
-                             @Param("fechaFin") LocalDateTime fechaFin,
-                             @Param("transportistaId") Long transportistaId,
-                             @Param("clienteId") Long clienteId,
-                             @Param("estadoPedido") String estadoPedido);
+            "(COALESCE(:startDate, r.dateOffice) <= r.dateOffice) AND " +
+            "(COALESCE(:endDate, r.dateOffice) >= r.dateOffice) AND " +
+            "(COALESCE(:carrierId, r.carrier.id) = r.carrier.id) AND " +
+            "(COALESCE(:clientId, r.client.id) = r.client.id) AND " +
+            "(COALESCE(:orderStatus, r.deliveryStatus) = r.deliveryStatus)")
+    List<Report> findReports(@Param("startDate") LocalDateTime startDate,
+                             @Param("endDate") LocalDateTime endDate,
+                             @Param("carrierId") Long carrierId,
+                             @Param("clientId") Long clientId,
+                             @Param("orderStatus") String orderStatus);
 
 }

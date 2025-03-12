@@ -1,34 +1,40 @@
 package co.com.asgard.core.util;
 
-import co.com.asgard.core.dto.ReportRequestDTO;
+import co.com.asgard.core.dto.ReportResponseDTO;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-public class ReportEXCELGenerator {
+public class ReportExcelGenerator {
 
-    public static byte[] generarExcel(ReportRequestDTO report) throws IOException {
+    public static byte[] generateExcel(ReportResponseDTO report) throws IOException {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Reporte");
 
             // Encabezados del reporte
             Row headerRow = sheet.createRow(0);
-            String[] headers = {"Fecha Inicio", "Fecha Fin", "Transportista ID", "Cliente ID", "Estado Pedido"};
+            String[] headers = {
+                    "Total Pedidos Despachados",
+                    "Entregas Exitosas",
+                    "Pedidos Retrasados",
+                    "Causa Retraso",
+                    "Porcentaje Eficiencia"
+            };
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
                 cell.setCellStyle(getHeaderStyle(workbook));
             }
 
-            // Insertar los datos del request
+            // Insertar los datos del reporte
             Row dataRow = sheet.createRow(1);
-            dataRow.createCell(0).setCellValue(report.getFechaInicio().toString());
-            dataRow.createCell(1).setCellValue(report.getFechaFin().toString());
-            dataRow.createCell(2).setCellValue(report.getTransportistaId());
-            dataRow.createCell(3).setCellValue(report.getClienteId());
-            dataRow.createCell(4).setCellValue(report.getEstadoPedido());
+            dataRow.createCell(0).setCellValue(report.getTotalPedidosDespachados());
+            dataRow.createCell(1).setCellValue(report.getEntregasExitosas());
+            dataRow.createCell(2).setCellValue(report.getPedidosRetrasados());
+            dataRow.createCell(3).setCellValue(report.getCausaRetraso() != null ? report.getCausaRetraso() : "No especificado");
+            dataRow.createCell(4).setCellValue(report.getPorcentajeEficiencia());
 
             // Ajustar columnas automáticamente
             for (int i = 0; i < headers.length; i++) {
@@ -50,5 +56,4 @@ public class ReportEXCELGenerator {
         style.setFont(font);
         return style;
     }
-
 }
