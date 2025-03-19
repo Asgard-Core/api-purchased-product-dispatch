@@ -43,3 +43,13 @@ jobs:
 
       - name: Run SonarCloud Analysis
         run: mvn sonar:sonar -Dsonar.projectKey=${{ secrets.SONAR_PROJECT }} -Dsonar.organization=${{ secrets.SONAR_ORG }} -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+services:
+  postgres:
+    image: postgres:latest
+    env:
+      POSTGRES_DB: logistics_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - 5432:5432
