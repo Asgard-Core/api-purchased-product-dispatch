@@ -7,6 +7,7 @@ import co.com.asgard.core.repository.HistoricalRepository;
 import co.com.asgard.core.repository.ProductRepository;
 import co.com.asgard.core.service.IStockService;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 
+@Slf4j
 @Service
 public class StockServiceImpl implements IStockService {
 
@@ -45,6 +47,7 @@ public class StockServiceImpl implements IStockService {
 
     public void saveQuery(String user, String codeProduct) {
         Product product = productRepository.findByCode(codeProduct);
+        log.info("product: {}", product);
 
         if (product == null) {
             throw new EntityNotFoundException("Producto no encontrado con código: " + codeProduct);
