@@ -76,6 +76,8 @@ public class ReportController {
         LoggerContext.setBusiness(Constants.PURCHASED_PRODUCT_DISPATCH);
         LoggerContext.setApp(Constants.APP);
 
+        log.info("correlationId: {}", correlation);
+
         try {
             ReportResponseDTO report = reportService.generateReport(request);
             byte[] pdfBytes = ReportPdfGenerator.generatePDF(report);
