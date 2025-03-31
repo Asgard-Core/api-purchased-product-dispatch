@@ -2,8 +2,7 @@ package co.com.asgard.core.model;
 
 import java.util.List;
 
-import com.jhonny.api.enums.EstadoTransportista;
-
+import co.com.asgard.core.enums.EstadoTransportista;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,13 +11,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-
 import lombok.Getter;
 import lombok.Setter;
 
+
+
 @Entity
-@Getter
 @Setter
+@Getter
 
 public class transportistas {
     @Id
