@@ -12,7 +12,9 @@
 	<artifactId>api-purchased-product-dispatch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	
+	<modules>
+		<module>transportistas</module>
+	</modules>
 	<name>api-purchased-product-dispatch</name>
 	<description>Manages the dispatch and delivery of purchased products</description>
 	<url/>
