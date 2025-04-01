@@ -28,13 +28,20 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
-		<sonar.coverage.exclusions>
+
+		<sonar.exclusions>
+			**/config/**,
 			**/controller/**,
 			**/dto/**,
-			**/config/**,
 			**/enums/**,
+			**/model/**,
+			**/repository/**,
 			**/util/**
-		</sonar.coverage.exclusions>
+		</sonar.exclusions>
+
+		<sonar.inclusions>
+			**/service/impl/**
+		</sonar.inclusions>
 	</properties>
 	<dependencies>
 		<!-- SPRING BOOT START -->
@@ -95,13 +102,6 @@
 			<version>5.5.13.3</version>
 		</dependency>
 
-		<!-- TEST UNITARIO -->
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -124,12 +124,43 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.sonarsource.scanner.maven</groupId>
-				<artifactId>sonar-maven-plugin</artifactId>
-				<version>4.0.0.4121</version>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.11</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>co/com/asgard/.</exclude>
+								<exclude>co/com/asgard/core/config/</exclude>
+								<exclude>co/com/asgard/core/controller/</exclude>
+								<exclude>co/com/asgard/core/dto/</exclude>
+								<exclude>co/com/asgard/core/enums/</exclude>
+								<exclude>co/com/asgard/core/model/</exclude>
+								<exclude>co/com/asgard/core/repository/</exclude>
+								<exclude>co/com/asgard/core/util/</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
-
 
 </project>

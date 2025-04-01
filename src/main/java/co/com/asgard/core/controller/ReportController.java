@@ -104,6 +104,7 @@ public class ReportController {
         LoggerContext.setBusiness(Constants.PURCHASED_PRODUCT_DISPATCH);
         LoggerContext.setApp(Constants.APP);
 
+
         try {
             ReportResponseDTO report = reportService.generateReport(request);
             byte[] excelBytes = ReportExcelGenerator.generateExcel(report);
