@@ -44,7 +44,7 @@ public class ReportController {
         LoggerContext.setApp(Constants.APP);
 
         ReportResponseDTO response = reportService.generateReport(request);
-        log.info("[generateReport] Report generated successfully for User: {}", idUser);
+        log.info("[generateReport] Report generated successfully for User: {} ", idUser);
         return ResponseEntity.ok(response);
     }
 
