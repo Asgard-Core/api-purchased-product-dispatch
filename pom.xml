@@ -39,10 +39,6 @@
 			**/service/**,
 			**/util/**
 		</sonar.exclusions>
-
-		<sonar.inclusions>
-			**/service/impl/**
-		</sonar.inclusions>
 	</properties>
 	<dependencies>
 		<!-- SPRING BOOT START -->
