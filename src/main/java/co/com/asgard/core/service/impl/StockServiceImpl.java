@@ -47,7 +47,7 @@ public class StockServiceImpl implements IStockService {
 
     public void saveQuery(String user, String codeProduct) {
         Product product = productRepository.findByCode(codeProduct);
-        log.info("product: {}", product);
+        log.info("product: {}" , product);
 
         if (product == null) {
             throw new EntityNotFoundException("Producto no encontrado con código: " + codeProduct);
