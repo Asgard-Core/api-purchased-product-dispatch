@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -119,5 +120,11 @@ public class ReportServiceImpl implements IReportService {
                 )
         ).collect(Collectors.toList());
     }
+
+@Override
+public byte[] generateExcelReport(ReportRequestDTO request) throws IOException {
+
+        throw new UnsupportedOperationException("Unimplemented method 'generateExcelReport'");
+}
 
 }
