@@ -37,6 +37,7 @@ public class StockController {
         LoggerContext.setApp(Constants.APP);
 
         Product product = stockService.searchProduct(query);
+        System.out.println("Producto actualizado");
         return ResponseEntity.ok(product);
     }
 
