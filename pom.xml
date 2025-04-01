@@ -28,6 +28,21 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+
+		<sonar.exclusions>
+			**/config/**,
+			**/controller/**,
+			**/dto/**,
+			**/enums/**,
+			**/model/**,
+			**/repository/**,
+			**/service/**,
+			**/util/**
+		</sonar.exclusions>
+
+		<sonar.inclusions>
+			**/service/impl/**
+		</sonar.inclusions>
 	</properties>
 	<dependencies>
 		<!-- SPRING BOOT START -->
@@ -108,8 +123,14 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+
+			<!-- SonarQube Plugin -->
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.9.1.2184</version>
+			</plugin>
 		</plugins>
 	</build>
-
 
 </project>
