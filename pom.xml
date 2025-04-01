@@ -88,6 +88,13 @@
 			<version>5.5.13.3</version>
 		</dependency>
 
+		<!-- TEST UNITARIO -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
