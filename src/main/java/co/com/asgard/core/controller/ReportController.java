@@ -61,6 +61,7 @@ public class ReportController {
 
         List<ReportDTO> reports = reportService.getAllReports();
         log.info("[getAllReports] {} reports retrieved for User: {}", reports.size(), idUser);
+        System.out.println("Generacion de reporte");
         return ResponseEntity.ok(reports);
     }
 
