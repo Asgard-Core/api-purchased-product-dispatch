@@ -44,7 +44,7 @@ public class ReportController {
         LoggerContext.setApp(Constants.APP);
 
         ReportResponseDTO response = reportService.generateReport(request);
-        log.info("[generateReport] Report generated successfully for User: {}", idUser);
+        log.info("[generateReport] Report generated successfully for User: {} ", idUser);
         return ResponseEntity.ok(response);
     }
 
@@ -103,6 +103,7 @@ public class ReportController {
         LoggerContext.setUuid(correlation);
         LoggerContext.setBusiness(Constants.PURCHASED_PRODUCT_DISPATCH);
         LoggerContext.setApp(Constants.APP);
+
 
         try {
             ReportResponseDTO report = reportService.generateReport(request);
