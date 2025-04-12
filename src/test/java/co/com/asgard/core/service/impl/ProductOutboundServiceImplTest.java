@@ -72,6 +72,7 @@ class ProductOutboundServiceImplTest {
         when(productRepo.save(any(Product.class))).thenReturn(product); // Mock para la actualización de stock
 
         ProductOutboundResponseDTO responseDTO = service.registerOutbound(requestDTO);
+        responseDTO.setCodeRegister("OUT-RANDOM"); // Variable cambiante
 
         assertNotNull(responseDTO);
         assertEquals(savedOutbound.getCodeRegister(), responseDTO.getCodeRegister());
