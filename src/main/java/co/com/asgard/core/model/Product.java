@@ -1,29 +1,28 @@
 package co.com.asgard.core.model;
 
-import co.com.asgard.core.enums.StatusProduct;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
-@Data
 @Entity
-@Table(name = "products")
+@Table(name = "product")
+@Getter
+@Setter
+@RequiredArgsConstructor
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(name = "code", unique = true, nullable = false)
     private String code;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(name = "quantity_available", nullable = false)
-    private int quantityAvailable;
+    private String description;
 
-    private String address;
-
-    @Enumerated(EnumType.STRING)
-    private StatusProduct status;
-
+    @Column(name = "current_stock", nullable = false)
+    private Integer currentStock = 0;
 }
