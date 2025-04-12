@@ -6,23 +6,24 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "product")
+@Table(name = "incidents")
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Product {
+public class Incident {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", unique = true, nullable = false)
-    private String code;
+    private String type; // Ej: "Retraso", "Dirección incorrecta", etc.
 
-    private String name;
+    private String cause;
 
-    private String description;
+    private String resolution;
 
-    @Column(name = "current_stock", nullable = false)
-    private Integer currentStock = 0;
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
 }

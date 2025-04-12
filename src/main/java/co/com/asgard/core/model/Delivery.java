@@ -8,24 +8,26 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "report")
+@Table(name = "deliveries")
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Report {
+public class Delivery {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private AppUser user;
+    private LocalDateTime deliveryDate;
 
-    @Column(name = "report_type")
-    private String reportType;
+    private boolean successful;
 
-    @Column(name = "generated_at")
-    private LocalDateTime generatedAt = LocalDateTime.now();
+    private String recipient;
+
+    private String deliveryAddress;
+
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
 }

@@ -5,27 +5,26 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
-@Table(name = "report")
+@Table(name = "order_product")
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Report {
+public class OrderProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private AppUser user;
+    @JoinColumn(name = "order_id")
+    private CustomerOrder order;
 
-    @Column(name = "report_type")
-    private String reportType;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
-    @Column(name = "generated_at")
-    private LocalDateTime generatedAt = LocalDateTime.now();
+    @Column(nullable = false)
+    private Integer quantity;
 
 }

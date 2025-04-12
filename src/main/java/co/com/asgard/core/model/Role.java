@@ -6,23 +6,17 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "product")
+@Table(name = "role")
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Product {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", unique = true, nullable = false)
-    private String code;
-
+    @Column(nullable = false, unique = true)
     private String name;
 
-    private String description;
-
-    @Column(name = "current_stock", nullable = false)
-    private Integer currentStock = 0;
 }
