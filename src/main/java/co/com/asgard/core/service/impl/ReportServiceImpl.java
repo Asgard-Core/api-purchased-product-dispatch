@@ -43,8 +43,7 @@ public class ReportServiceImpl implements IReportService {
                             ", End Date: " + request.getEndDate() +
                             ", Carrier ID: " + request.getCarrierId() +
                             ", Client ID: " + request.getClientId() +
-                            ", Order Status: " + request.getOrderStatus() +
-                            ", Correlation ID: " + correlationId,
+                            ", Order Status: " + request.getOrderStatus(),
                     "200", LoggerContext.getBusiness(), ProcessType.INPUT);
 
             LocalDateTime startDate = request.getStartDate().atStartOfDay();
