@@ -28,6 +28,20 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+
+		<sonar.exclusions>
+			**/config/**,
+			**/controller/**,
+			**/dto/**,
+			**/enums/**,
+			**/model/**,
+			**/repository/**,
+			**/util/**
+		</sonar.exclusions>
+
+		<sonar.inclusions>
+			**/service/impl/**
+		</sonar.inclusions>
 	</properties>
 	<dependencies>
 		<!-- SPRING BOOT START -->
@@ -108,8 +122,45 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.11</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<excludes>
+								<exclude>co/com/asgard/.</exclude>
+								<exclude>co/com/asgard/core/config/</exclude>
+								<exclude>co/com/asgard/core/controller/</exclude>
+								<exclude>co/com/asgard/core/dto/</exclude>
+								<exclude>co/com/asgard/core/enums/</exclude>
+								<exclude>co/com/asgard/core/model/</exclude>
+								<exclude>co/com/asgard/core/repository/</exclude>
+								<exclude>co/com/asgard/core/util/</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
-
 
 </project>
