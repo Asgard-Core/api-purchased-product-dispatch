@@ -14,6 +14,7 @@ co\com\asgard\core\service\impl\ProductOutboundServiceImpl.class
 co\com\asgard\core\repository\ShipmentRepository.class
 co\com\asgard\core\service\ShippingLabelService.class
 co\com\asgard\core\model\Delivery.class
+co\com\asgard\core\dto\ProductOutboundStatusUpdateDTO.class
 co\com\asgard\core\config\LoggerPrinter.class
 co\com\asgard\core\repository\ProductOutboundRepository.class
 co\com\asgard\core\controller\ProductOutboundController.class
@@ -42,4 +43,5 @@ co\com\asgard\core\service\impl\ShippingLabelServiceImpl.class
 co\com\asgard\core\model\Product.class
 co\com\asgard\core\repository\CustomerOrderRepository.class
 co\com\asgard\core\config\LoggerContext.class
+co\com\asgard\core\enums\OrderStatus.class
 co\com\asgard\core\repository\ShippingLabelRepository.class
