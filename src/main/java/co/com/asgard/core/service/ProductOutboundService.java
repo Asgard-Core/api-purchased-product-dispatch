@@ -7,5 +7,5 @@ import co.com.asgard.core.dto.ProductOutboundStatusUpdateDTO;
 public interface ProductOutboundService {
     ProductOutboundResponseDTO registerOutbound(ProductOutboundRequestDTO dto);
     void updateStatus(ProductOutboundStatusUpdateDTO dto);
-    
+    void actualizarEstadoPedido(Long id, String nuevoEstado);
 }

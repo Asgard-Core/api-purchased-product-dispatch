@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @RequiredArgsConstructor
 public class ProductOutbound {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,8 +35,13 @@ public class ProductOutbound {
     private AppUser responsible;
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status;
+    private OrderStatus status;  // Estado del pedido
 
-    private java.time.LocalDateTime statusUpdatedAt;
- 
+    private LocalDateTime statusUpdatedAt;  // Fecha y hora de la última actualización del estado
+
+    // Método para actualizar el estado y la fecha de actualización en un solo paso
+    public void actualizarEstado(OrderStatus nuevoEstado) {
+        this.status = nuevoEstado;
+        this.statusUpdatedAt = LocalDateTime.now();  // Asignamos la fecha y hora actual
+    }
 }
